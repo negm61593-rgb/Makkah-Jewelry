@@ -3,934 +3,781 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مجوهرات مكة | Makkah Jewelry</title>
+    <title>مجوهرات مكة | متجر المجوهرات الفاخرة</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: {
-                            100: '#F9F1D8',
-                            200: '#F0DEAA',
-                            300: '#E6CB7D',
-                            400: '#DDB850',
-                            500: '#D4AF37', // Main Gold
-                            600: '#AA8C2C',
-                            700: '#806921',
-                            800: '#554616',
-                            900: '#2B230B',
-                        },
-                        dark: '#0a0a0a',
-                        darker: '#050505'
-                    },
-                    fontFamily: {
-                        sans: ['"Noto Naskh Arabic"', 'serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'shimmer': 'shimmer 2s infinite linear',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-1000px 0' },
-                            '100%': { backgroundPosition: '1000px 0' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Scrollbar */
+        * {
+            font-family: 'Noto Naskh Arabic', serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        }
+        .text-gold {
+            color: #fbbf24;
+        }
+        .bg-gold {
+            background-color: #fbbf24;
+        }
+        .border-gold {
+            border-color: #fbbf24;
+        }
+        .hover-gold:hover {
+            color: #fbbf24;
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-shine {
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.4), transparent);
+            background-size: 200% 100%;
+            animation: shine 2s infinite;
+        }
+        @keyframes shine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        .modal-enter {
+            animation: modalEnter 0.3s ease;
+        }
+        @keyframes modalEnter {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .slide-enter {
+            animation: slideEnter 0.3s ease;
+        }
+        @keyframes slideEnter {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0a0a0a;
+            background: #0f172a;
         }
         ::-webkit-scrollbar-thumb {
-            background: #D4AF37;
+            background: #fbbf24;
             border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #AA8C2C;
-        }
-
-        /* Glassmorphism Utilities */
-        .glass {
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        
-        .glass-card {
-            background: linear-gradient(145deg, rgba(30,30,30,0.9) 0%, rgba(10,10,10,0.9) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .text-gold-gradient {
-            background: linear-gradient(to right, #D4AF37, #F0DEAA, #D4AF37);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% auto;
-            animation: shine 5s linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
-        }
-
-        /* Loader */
-        .loader {
-            border-top-color: #D4AF37;
-            -webkit-animation: spinner 1.5s linear infinite;
-            animation: spinner 1.5s linear infinite;
-        }
-        @keyframes spinner {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
         }
     </style>
 </head>
-<body class="bg-darker text-gray-100 font-sans overflow-x-hidden selection:bg-gold-500 selection:text-black">
+<body class="bg-slate-950 text-slate-100 min-h-screen">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 cursor-pointer" onclick="router.navigate('home')">
-                    <h1 class="font-serif text-2xl md:text-3xl font-bold text-gold-gradient tracking-wider">
-                        مجوهرات مكة
-                    </h1>
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showView('home')">
+                <div class="w-12 h-12 rounded-full gold-gradient flex items-center justify-center shadow-lg shadow-amber-500/20">
+                    <svg class="w-7 h-7 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5 16L3 5l8-3 8 3-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-2h14v2z"/>
+                        <path d="M12 8a2 2 0 100-4 2 2 0 000 4z" fill="currentColor" opacity="0.5"/>
+                    </svg>
                 </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8 space-x-reverse">
-                        <button onclick="router.navigate('home')" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">الرئيسية</button>
-                        <button onclick="router.navigate('products')" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">جميع المنتجات</button>
-                        <button onclick="router.navigate('contact')" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">تواصل معنا</button>
-                        <!-- Admin Access (Hidden in plain sight) -->
-                        <button onclick="adminAuth.prompt()" class="text-gray-600 hover:text-gold-500 text-xs border border-gray-800 px-2 py-1 rounded opacity-50 hover:opacity-100 transition-all">
-                            <i class="fas fa-lock"></i> Admin
-                        </button>
-                    </div>
+                <div>
+                    <h1 class="text-2xl font-bold font-serif text-amber-400 tracking-wide">مكة</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest">Jewelry</p>
                 </div>
+            </div>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button onclick="toggleMobileMenu()" class="text-gold-400 hover:text-white p-2">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <button onclick="showView('home')" class="nav-link text-slate-300 hover:text-amber-400 transition-colors font-medium">الرئيسية</button>
+                <button onclick="showView('products')" class="nav-link text-slate-300 hover:text-amber-400 transition-colors font-medium">المتجر</button>
+                <button onclick="showView('contact')" class="nav-link text-slate-300 hover:text-amber-400 transition-colors font-medium">تواصل معنا</button>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <div class="hidden md:block relative">
+                    <input type="text" id="searchInput" placeholder="ابحث عن منتج..." 
+                        class="bg-slate-900/50 border border-slate-700 rounded-full py-2 pr-10 pl-4 text-sm text-white focus:outline-none focus:border-amber-400 w-48 transition-all focus:w-64"
+                        onkeyup="handleSearch(this.value)">
+                    <svg class="absolute right-3 top-2.5 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
                 </div>
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div class="md:hidden hidden glass border-t border-gold-900/30" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-                <button onclick="router.navigate('home'); toggleMobileMenu()" class="text-gray-300 hover:text-gold-400 block px-3 py-2 rounded-md text-base font-medium w-full">الرئيسية</button>
-                <button onclick="router.navigate('products'); toggleMobileMenu()" class="text-gray-300 hover:text-gold-400 block px-3 py-2 rounded-md text-base font-medium w-full">المنتجات</button>
-                <button onclick="router.navigate('contact'); toggleMobileMenu()" class="text-gray-300 hover:text-gold-400 block px-3 py-2 rounded-md text-base font-medium w-full">تواصل معنا</button>
-            </div>
+        <div id="mobileMenu" class="hidden md:hidden glass mt-4 mx-4 rounded-2xl p-4 border border-slate-800">
+            <button onclick="showView('home'); toggleMobileMenu()" class="block w-full text-right py-3 text-slate-300 border-b border-slate-800">الرئيسية</button>
+            <button onclick="showView('products'); toggleMobileMenu()" class="block w-full text-right py-3 text-slate-300 border-b border-slate-800">المتجر</button>
+            <button onclick="showView('contact'); toggleMobileMenu()" class="block w-full text-right py-3 text-slate-300">تواصل معنا</button>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main id="app" class="min-h-screen pt-20 pb-24">
-        <!-- Views will be injected here by JS -->
+    <!-- Main Content -->
+    <main id="mainContent" class="pt-20">
+        <!-- Views will be injected here -->
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full gold-gradient flex items-center justify-center">
+                    <svg class="w-5 h-5 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5 16L3 5l8-3 8 3-2 11H5z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-serif font-bold text-white">مجوهرات مكة</span>
+            </div>
+            <p class="text-slate-500 text-sm">© 2024 جميع الحقوق محفوظة</p>
+            <button onclick="showAdminLogin()" class="text-slate-600 hover:text-amber-400 text-sm flex items-center gap-2 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                Admin
+            </button>
+        </div>
+    </footer>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/201009635176?text=السلام%20عليكم،%20أريد%20الاستفسار%20عن%20منتجات%20متجر%20مجوهرات%20مكة" 
        target="_blank"
-       class="fixed bottom-6 left-6 z-40 bg-green-600 hover:bg-green-500 text-white rounded-full p-4 shadow-lg shadow-green-900/50 transition-transform hover:scale-110 flex items-center gap-2 group">
-        <span class="hidden group-hover:inline-block font-bold text-sm">تواصل معنا</span>
-        <i class="fab fa-whatsapp text-2xl"></i>
+       class="fixed bottom-6 left-6 z-40 bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-full shadow-lg shadow-green-500/30 hover:scale-110 transition-all duration-300 flex items-center gap-2 group">
+        <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap font-bold text-sm">تواصل معنا</span>
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
     </a>
 
-    <!-- Footer -->
-    <footer class="bg-black border-t border-gold-900/30 pt-12 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div class="text-center md:text-right">
-                    <h3 class="text-gold-400 font-serif text-xl mb-4">مجوهرات مكة</h3>
-                    <p class="text-gray-400 text-sm">أجود أنواع المجوهرات والذهب بأحدث التصاميم العالمية. ثقة وجودة تدوم لعمر.</p>
-                </div>
-                <div class="text-center">
-                    <h3 class="text-white font-bold mb-4">تواصل معنا</h3>
-                    <div class="flex justify-center gap-4">
-                        <a href="https://www.facebook.com/share/1FXLCgoZcj/" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-blue-400 hover:bg-blue-600 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://wa.me/201009635176" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-green-400 hover:bg-green-600 hover:text-white transition-colors">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="text-center md:text-left">
-                    <h3 class="text-white font-bold mb-4">روابط سريعة</h3>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><button onclick="router.navigate('home')" class="hover:text-gold-400">الرئيسية</button></li>
-                        <li><button onclick="router.navigate('products')" class="hover:text-gold-400">المتجر</button></li>
-                        <li><button onclick="router.navigate('contact')" class="hover:text-gold-400">الدعم الفني</button></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-600 text-xs">
-                <p>&copy; 2024 مجوهرات مكة. جميع الحقوق محفوظة.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Admin Login Modal -->
-    <div id="admin-login-modal" class="fixed inset-0 z-[60] hidden">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="adminAuth.close()"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
-            <div class="glass-card p-8 rounded-2xl relative">
-                <button onclick="adminAuth.close()" class="absolute top-4 left-4 text-gray-400 hover:text-white">
-                    <i class="fas fa-times"></i>
+    <!-- Product Modal -->
+    <div id="productModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm">
+        <div class="bg-slate-900 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-slate-800 flex flex-col md:flex-row max-h-[90vh] modal-enter">
+            <div class="w-full md:w-1/2 relative h-64 md:h-auto">
+                <img id="modalImage" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-amber-500 hover:text-black transition-colors md:hidden">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
-                <div class="text-center mb-6">
-                    <i class="fas fa-crown text-gold-500 text-4xl mb-2"></i>
-                    <h2 class="text-2xl font-serif text-gold-400">لوحة التحكم</h2>
-                    <p class="text-gray-400 text-sm mt-2">هذه المنطقة خاصة بالإدارة فقط</p>
-                </div>
-                <form onsubmit="adminAuth.login(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-gray-400 text-sm mb-2">كلمة المرور</label>
-                        <input type="password" id="admin-pin" class="w-full bg-black/50 border border-gold-900/50 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none text-center tracking-widest" placeholder="••••">
+            </div>
+            <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col relative overflow-y-auto">
+                <button onclick="closeModal()" class="absolute top-6 left-6 w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors hidden md:flex">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="mb-auto">
+                    <span id="modalCategory" class="text-amber-500 font-medium tracking-wide text-sm"></span>
+                    <h2 id="modalTitle" class="text-3xl md:text-4xl font-serif font-bold text-white mt-2 mb-4"></h2>
+                    <div class="flex items-center gap-4 mb-8">
+                        <span id="modalPrice" class="text-3xl font-serif text-amber-400"></span>
+                        <span id="modalBadge" class="hidden px-3 py-1 bg-amber-500/10 text-amber-400 text-xs rounded-full border border-amber-500/20">منتج مميز</span>
                     </div>
-                    <button type="submit" class="w-full bg-gold-600 hover:bg-gold-500 text-black font-bold py-3 rounded-lg transition-colors">
-                        دخول
+                    <p id="modalDesc" class="text-slate-300 leading-relaxed mb-4"></p>
+                    <p class="text-slate-400 text-sm">جميع منتجاتنا مصنوعة من أجود أنواع الذهب والأحجار الكريمة، ويتم فحصها بدقة لضمان أعلى معايير الجودة.</p>
+                </div>
+                <div class="mt-8 space-y-4">
+                    <button id="modalOrderBtn" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl flex items-center justify-center gap-3 transition-all hover:shadow-lg hover:shadow-amber-500/30">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        اطلب الآن عبر واتساب
                     </button>
-                    <p id="login-error" class="text-red-500 text-xs text-center hidden">كلمة المرور غير صحيحة</p>
-                </form>
+                    <div class="flex items-center justify-center gap-2 text-slate-500 text-sm">
+                        <span>أو تواصل معنا مباشرة:</span>
+                        <a href="tel:+201009635176" class="text-amber-400 hover:underline">+20 100 963 5176</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed top-24 left-1/2 transform -translate-x-1/2 bg-gold-500 text-black px-6 py-3 rounded-full shadow-2xl z-[70] transition-all duration-300 opacity-0 translate-y-[-20px] pointer-events-none font-bold flex items-center gap-2">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-msg">تمت العملية بنجاح</span>
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="fixed inset-0 z-[80] hidden items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm">
+        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 w-full max-w-md modal-enter">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white">لوحة التحكم</h2>
+                <p class="text-slate-400 text-sm mt-2">هذه المنطقة مخصصة للإدارة فقط</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <input type="password" id="adminPin" placeholder="أدخل رمز الدخول (1234)" 
+                    class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-center text-white tracking-[0.5em] focus:border-amber-500 focus:outline-none">
+                <p id="loginError" class="text-red-400 text-sm text-center hidden">رمز الدخول غير صحيح</p>
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeAdminLogin()" class="flex-1 py-3 border border-slate-800 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">إلغاء</button>
+                    <button type="submit" class="flex-1 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition-colors">دخول</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminView" class="hidden pt-24 pb-12 px-6 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+                <div>
+                    <h1 class="text-3xl font-serif text-white mb-2">لوحة التحكم</h1>
+                    <p class="text-slate-400">إدارة المنتجات والطلبات</p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="openProductForm()" class="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-950 px-6 py-3 rounded-xl font-bold transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        إضافة منتج
+                    </button>
+                    <button onclick="logoutAdmin()" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-red-400 border border-slate-800 px-6 py-3 rounded-xl font-medium transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        خروج
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                    <div class="text-slate-400 mb-2">إجمالي المنتجات</div>
+                    <div class="text-3xl font-bold text-white" id="statTotal">0</div>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                    <div class="text-slate-400 mb-2">المنتجات المميزة</div>
+                    <div class="text-3xl font-bold text-amber-400" id="statFeatured">0</div>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800">
+                    <div class="text-slate-400 mb-2">الطلبات الجديدة</div>
+                    <div class="text-3xl font-bold text-emerald-400">12</div>
+                </div>
+            </div>
+
+            <!-- Products Table -->
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right">
+                        <thead class="bg-slate-950/50 text-slate-400 text-sm">
+                            <tr>
+                                <th class="p-5 font-medium">المنتج</th>
+                                <th class="p-5 font-medium">الفئة</th>
+                                <th class="p-5 font-medium">السعر</th>
+                                <th class="p-5 font-medium">الحالة</th>
+                                <th class="p-5 font-medium text-left">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody" class="divide-y divide-slate-800">
+                            <!-- Filled by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Form Modal -->
+    <div id="productFormModal" class="fixed inset-0 z-[90] hidden items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm">
+        <div class="bg-slate-900 w-full max-w-lg rounded-2xl border border-slate-800 p-8 max-h-[90vh] overflow-y-auto modal-enter">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-white" id="formTitle">إضافة منتج جديد</h2>
+                <button onclick="closeProductForm()" class="text-slate-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form id="productForm" onsubmit="saveProduct(event)" class="space-y-5">
+                <input type="hidden" id="editId">
+                <div>
+                    <label class="block text-sm text-slate-400 mb-2">اسم المنتج</label>
+                    <input type="text" id="formName" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">السعر</label>
+                        <input type="number" id="formPrice" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-2">الفئة</label>
+                        <select id="formCategory" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 focus:outline-none">
+                            <option value="خواتم">خواتم</option>
+                            <option value="سلاسل">سلاسل</option>
+                            <option value="أساور">أساور</option>
+                            <option value="أطقم مجوهرات">أطقم مجوهرات</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-2">رابط الصورة</label>
+                    <input type="url" id="formImage" required class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-2">الوصف</label>
+                    <textarea id="formDesc" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 focus:outline-none"></textarea>
+                </div>
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" id="formFeatured" class="w-5 h-5 rounded border-slate-800 bg-slate-950 text-amber-500 focus:ring-amber-500">
+                    <span class="text-white">منتج مميز</span>
+                </label>
+                <button type="submit" class="w-full py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition-colors">
+                    حفظ المنتج
+                </button>
+            </form>
+        </div>
     </div>
 
     <script>
-        // --- Data Management (Simulating Backend) ---
-        const db = {
-            key: 'makkah_jewelry_data',
-            get: function() {
-                const data = localStorage.getItem(this.key);
-                if (data) return JSON.parse(data);
-                // Default Initial Data
-                return {
-                    products: [
-                        {
-                            id: 1,
-                            name: "خاتم ذهب عيار 18 عيار",
-                            price: 8500,
-                            category: "خواتم",
-                            description: "خاتم فاخر مطلي بالذهب عيار 18، مناسب للمناسبات الخاصة. تصميم كلاسيكي أنيق.",
-                            images: ["https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80"],
-                            featured: true,
-                            offer: false
-                        },
-                        {
-                            id: 2,
-                            name: "طقم مجوهرات كامل",
-                            price: 12500,
-                            category: "أطقم مجوهرات",
-                            description: "طقم متكامل يتضمن عقد، أقراط، وسوار. تصميم ملكي فاخر.",
-                            images: ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"],
-                            featured: true,
-                            offer: true
-                        },
-                        {
-                            id: 3,
-                            name: "سوار ذهبي أنيق",
-                            price: 4500,
-                            category: "أساور",
-                            description: "سوار ذهبي ناعم بتصميم عصري يناسب الإطلالات اليومية.",
-                            images: ["https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80"],
-                            featured: false,
-                            offer: false
-                        },
-                        {
-                            id: 4,
-                            name: "سلسلة ذهب إيطالي",
-                            price: 9200,
-                            category: "سلاسل",
-                            description: "سلسلة ذهبية نقية بتصميم إيطالي رفيع ولامع.",
-                            images: ["https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&w=800&q=80"],
-                            featured: true,
-                            offer: false
-                        }
-                    ]
-                };
+        // Data
+        let products = [
+            {
+                id: '1',
+                name: 'خاتم الماس سوليتير فاخر',
+                price: 12500,
+                category: 'خواتم',
+                description: 'خاتم مصنوع من الذهب الأبيض عيار 18 مرصع بألماس طبيعي نقي. يعكس الفخامة والرقي في كل مناسبة.',
+                image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=800',
+                featured: true,
+                isNew: true
             },
-            save: function(data) {
-                localStorage.setItem(this.key, JSON.stringify(data));
+            {
+                id: '2',
+                name: 'طقم زفاف ملكي كامل',
+                price: 45000,
+                category: 'أطقم مجوهرات',
+                description: 'طقم متكامل يتضمن عقداً وأقراطاً وسواراً، مناسب لأعراس الأمراء. تصميم يجمع بين الأصالة والحداثة.',
+                image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=800',
+                featured: true
             },
-            getProducts: function() {
-                return this.get().products;
+            {
+                id: '3',
+                name: 'سوار الذهب الإيطالي',
+                price: 8900,
+                category: 'أساور',
+                description: 'سوار ذهب إيطالي عيار 21 بتصميم ناعم يلتف حول المعصم كأنه نسيم ربيعي.',
+                image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=800',
+                featured: false
             },
-            getProduct: function(id) {
-                return this.get().products.find(p => p.id == id);
+            {
+                id: '4',
+                name: 'سلسلة فيجارو كلاسيكية',
+                price: 5600,
+                category: 'سلاسل',
+                description: 'سلسلة ذهبية كلاسيكية بتصميم فيجارو الأنيق، تصلح للرجال والنساء.',
+                image: 'https://images.unsplash.com/photo-1599643478518-17488fbbcd75?auto=format&fit=crop&q=80&w=800',
+                featured: false,
+                isNew: true
             },
-            addProduct: function(product) {
-                const data = this.get();
-                product.id = Date.now();
-                data.products.push(product);
-                this.save(data);
-                return product;
+            {
+                id: '5',
+                name: 'خاتم زمرد نادر',
+                price: 15800,
+                category: 'خواتم',
+                description: 'خاتم نادر مرصع بحجر الزمرد الطبيعي المحاط بالألماس، يدل على الجودة والندرة.',
+                image: 'https://images.unsplash.com/photo-1598560917505-59c3d25e12ad?auto=format&fit=crop&q=80&w=800',
+                featured: true
             },
-            updateProduct: function(id, updatedData) {
-                const data = this.get();
-                const index = data.products.findIndex(p => p.id == id);
-                if (index !== -1) {
-                    data.products[index] = { ...data.products[index], ...updatedData };
-                    this.save(data);
-                    return true;
-                }
-                return false;
-            },
-            deleteProduct: function(id) {
-                const data = this.get();
-                data.products = data.products.filter(p => p.id != id);
-                this.save(data);
+            {
+                id: '6',
+                name: 'طقم ألماس يومي',
+                price: 9200,
+                category: 'أطقم مجوهرات',
+                description: 'طقم خفيف وناعم للإطلالات اليومية، يجمع بين البساطة واللمعان الدائم.',
+                image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800',
+                featured: false
             }
-        };
+        ];
 
-        // --- Router & Views ---
-        const router = {
-            currentPage: 'home',
-            navigate: function(page, params = null) {
-                this.currentPage = page;
-                window.scrollTo(0, 0);
-                const app = document.getElementById('app');
-                
-                // Simple fade out effect could go here
-                
-                switch(page) {
-                    case 'home':
-                        app.innerHTML = views.home();
-                        break;
-                    case 'products':
-                        app.innerHTML = views.products(params);
-                        break;
-                    case 'product-details':
-                        app.innerHTML = views.productDetails(params);
-                        break;
-                    case 'contact':
-                        app.innerHTML = views.contact();
-                        break;
-                    case 'admin':
-                        if(adminAuth.isAuthenticated) {
-                            app.innerHTML = views.admin();
-                            adminDashboard.init();
-                        } else {
-                            adminAuth.prompt();
-                            this.navigate('home');
-                        }
-                        break;
-                    default:
-                        app.innerHTML = views.home();
-                }
-            }
-        };
+        let isAdmin = false;
+        let currentView = 'home';
 
-        // --- View Templates ---
-        const views = {
-            home: () => {
-                const products = db.getProducts();
-                const featured = products.filter(p => p.featured).slice(0, 4);
-                const latest = [...products].reverse().slice(0, 4);
-
-                return `
-                    <!-- Hero Section -->
-                    <div class="relative h-[80vh] flex items-center justify-center overflow-hidden">
-                        <div class="absolute inset-0 z-0">
-                            <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-40" alt="Luxury Jewelry">
-                            <div class="absolute inset-0 bg-gradient-to-b from-darker/50 via-darker/20 to-darker"></div>
-                        </div>
-                        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto animate-fade-in-up">
-                            <h2 class="text-gold-400 text-lg md:text-xl tracking-[0.3em] mb-4 font-bold">فخامة لا تُضاهى</h2>
-                            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
-                                مجوهرات مكة
-                            </h1>
-                            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-                                اكتشف تشكيلتنا الفاخرة من الذهب والألماس. جودة عالية، تصاميم عصرية، وإتقان في الصناعة.
-                            </p>
-                            <button onclick="router.navigate('products')" class="bg-gold-600 hover:bg-gold-500 text-black font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                                تصفح المنتجات
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Featured Section -->
-                    <section class="py-20 px-4 max-w-7xl mx-auto">
-                        <div class="text-center mb-16">
-                            <h3 class="text-3xl font-serif text-gold-400 mb-2">منتجات مميزة</h3>
-                            <div class="h-1 w-24 bg-gold-600 mx-auto rounded-full"></div>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            ${featured.map(p => components.productCard(p)).join('')}
-                        </div>
-                    </section>
-
-                    <!-- Offers Banner -->
-                    <section class="py-20 bg-gradient-to-r from-gold-900/20 to-black border-y border-gold-900/30">
-                        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-10">
-                            <div class="md:w-1/2 text-right">
-                                <span class="text-gold-500 font-bold tracking-wider">عروض خاصة</span>
-                                <h2 class="text-4xl font-serif text-white mt-2 mb-4">خصومات تصل إلى 20% على الأطقم</h2>
-                                <p class="text-gray-400 mb-8">لفترة محدودة، احصل على خصم حصري عند الطلب عبر الواتساب. لا تفوت الفرصة!</p>
-                                <button onclick="router.navigate('products')" class="border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-black font-bold py-3 px-8 rounded-lg transition-colors">
-                                    اكتشف العروض
-                                </button>
-                            </div>
-                            <div class="md:w-1/2 relative">
-                                <div class="absolute inset-0 bg-gold-500 blur-[100px] opacity-20"></div>
-                                <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80" class="relative rounded-lg shadow-2xl border border-gold-900/50 rotate-3 hover:rotate-0 transition-transform duration-500" alt="Offer">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Latest Products -->
-                    <section class="py-20 px-4 max-w-7xl mx-auto">
-                        <div class="flex justify-between items-end mb-10 border-b border-gray-800 pb-4">
-                            <div>
-                                <h3 class="text-2xl font-serif text-white">وصل حديثاً</h3>
-                                <p class="text-gray-500 text-sm mt-1">أحدث القطع التي أضفناها إلى المتجر</p>
-                            </div>
-                            <button onclick="router.navigate('products')" class="text-gold-500 hover:text-gold-300 text-sm font-bold">عرض الكل <i class="fas fa-arrow-left mr-1"></i></button>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            ${latest.map(p => components.productCard(p)).join('')}
-                        </div>
-                    </section>
-                `;
-            },
-
-            products: (filter = {}) => {
-                let products = db.getProducts();
-                
-                // Search Filter
-                if(filter.search) {
-                    const term = filter.search.toLowerCase();
-                    products = products.filter(p => p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term));
-                }
-                
-                // Category Filter
-                if(filter.category && filter.category !== 'all') {
-                    products = products.filter(p => p.category === filter.category);
-                }
-
-                // Price Sort
-                if(filter.sort === 'low') products.sort((a,b) => a.price - b.price);
-                if(filter.sort === 'high') products.sort((a,b) => b.price - a.price);
-
-                return `
-                    <div class="max-w-7xl mx-auto px-4 py-10 animate-fade-in-up">
-                        <div class="text-center mb-12">
-                            <h2 class="text-4xl font-serif text-gold-400 mb-4">جميع المنتجات</h2>
-                            <p class="text-gray-400">تصفح مجموعتنا الفاخرة واطلب مباشرة عبر الواتساب</p>
-                        </div>
-
-                        <!-- Filters -->
-                        <div class="bg-dark p-6 rounded-xl border border-gray-800 mb-10 shadow-lg">
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <div class="relative">
-                                    <i class="fas fa-search absolute right-3 top-3.5 text-gray-500"></i>
-                                    <input type="text" id="search-input" placeholder="ابحث عن منتج..." 
-                                        class="w-full bg-black border border-gray-700 rounded-lg py-3 pr-10 text-white focus:border-gold-500 focus:outline-none"
-                                        oninput="views.handleSearch(this.value)">
-                                </div>
-                                <select onchange="views.handleCategory(this.value)" class="bg-black border border-gray-700 rounded-lg py-3 px-4 text-white focus:border-gold-500 focus:outline-none">
-                                    <option value="all">جميع الفئات</option>
-                                    <option value="خواتم">خواتم</option>
-                                    <option value="سلاسل">سلاسل</option>
-                                    <option value="أساور">أساور</option>
-                                    <option value="أطقم مجوهرات">أطقم مجوهرات</option>
-                                </select>
-                                <select onchange="views.handleSort(this.value)" class="bg-black border border-gray-700 rounded-lg py-3 px-4 text-white focus:border-gold-500 focus:outline-none">
-                                    <option value="newest">الأحدث</option>
-                                    <option value="low">السعر: من الأقل للأعلى</option>
-                                    <option value="high">السعر: من الأعلى للأقل</option>
-                                </select>
-                                <div class="flex items-center text-gray-400 text-sm">
-                                    <span>عدد النتائج: ${products.length}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Grid -->
-                        ${products.length > 0 ? `
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                                ${products.map(p => components.productCard(p)).join('')}
-                            </div>
-                        ` : `
-                            <div class="text-center py-20">
-                                <i class="fas fa-box-open text-6xl text-gray-700 mb-4"></i>
-                                <p class="text-gray-400 text-xl">لا توجد منتجات مطابقة لبحثك</p>
-                            </div>
-                        `}
-                    </div>
-                `;
-            },
-
-            productDetails: (id) => {
-                const product = db.getProduct(id);
-                if(!product) return `<div class="text-center py-20">المنتج غير موجود</div>`;
-
-                const whatsappMsg = `السلام عليكم، أريد طلب هذا المنتج من متجر مجوهرات مكة: %0A%0Aاسم المنتج: ${product.name}%0Aالسعر: ${product.price} جنيه%0A%0Aمن فضلك تواصل معي لإتمام الطلب.`;
-                const whatsappLink = `https://wa.me/201009635176?text=${whatsappMsg}`;
-
-                return `
-                    <div class="max-w-7xl mx-auto px-4 py-10 animate-fade-in-up">
-                        <button onclick="router.navigate('products')" class="mb-6 text-gray-400 hover:text-gold-500 flex items-center gap-2">
-                            <i class="fas fa-arrow-right"></i> رجوع للمنتجات
-                        </button>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-dark p-6 md:p-10 rounded-2xl border border-gray-800 shadow-2xl">
-                            <!-- Image -->
-                            <div class="relative group">
-                                <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-xl bg-gray-800">
-                                    <img src="${product.images[0]}" alt="${product.name}" class="w-full h-[400px] object-cover object-center group-hover:scale-110 transition-transform duration-700">
-                                </div>
-                                ${product.offer ? `<span class="absolute top-4 right-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">عرض خاص</span>` : ''}
-                            </div>
-
-                            <!-- Info -->
-                            <div class="flex flex-col justify-center text-right">
-                                <div class="mb-2 text-gold-500 text-sm font-bold tracking-wider">${product.category}</div>
-                                <h1 class="text-3xl md:text-4xl font-serif text-white mb-4">${product.name}</h1>
-                                <div class="text-3xl text-gold-400 font-bold mb-6">${product.price} ج.م</div>
-                                
-                                <div class="prose prose-invert mb-8 text-gray-300 leading-relaxed">
-                                    <p>${product.description}</p>
-                                </div>
-
-                                <div class="flex flex-col gap-4">
-                                    <a href="${whatsappLink}" target="_blank" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform hover:scale-[1.02] shadow-lg">
-                                        <i class="fab fa-whatsapp text-xl"></i>
-                                        اطلب عبر واتساب
-                                    </a>
-                                    <button onclick="utils.shareProduct('${product.name}')" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-colors">
-                                        <i class="fas fa-share-alt"></i>
-                                        مشاركة المنتج
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            },
-
-            contact: () => `
-                <div class="max-w-4xl mx-auto px-4 py-20 animate-fade-in-up text-center">
-                    <h2 class="text-4xl font-serif text-gold-400 mb-8">تواصل معنا</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <a href="https://wa.me/201009635176" target="_blank" class="glass-card p-8 rounded-2xl hover:border-green-500 transition-colors group">
-                            <i class="fab fa-whatsapp text-5xl text-green-500 mb-4 group-hover:scale-110 transition-transform block"></i>
-                            <h3 class="text-xl font-bold text-white mb-2">واتساب</h3>
-                            <p class="text-gray-400">+20 100 963 5176</p>
-                            <p class="text-sm text-gold-500 mt-4">تواصل مباشرة للطلب</p>
-                        </a>
-                        <a href="https://www.facebook.com/share/1FXLCgoZcj/" target="_blank" class="glass-card p-8 rounded-2xl hover:border-blue-500 transition-colors group">
-                            <i class="fab fa-facebook text-5xl text-blue-500 mb-4 group-hover:scale-110 transition-transform block"></i>
-                            <h3 class="text-xl font-bold text-white mb-2">فيسبوك</h3>
-                            <p class="text-gray-400">Makkah Jewelry</p>
-                            <p class="text-sm text-gold-500 mt-4">تابعنا للعروض</p>
-                        </a>
-                    </div>
-                    <div class="mt-16 p-8 glass-card rounded-2xl">
-                        <h3 class="text-2xl text-white mb-4">ساعات العمل</h3>
-                        <div class="flex justify-center gap-8 text-gray-300">
-                            <div>السبت - الخميس: 10 صباحاً - 10 مساءً</div>
-                            <div>الجمعة: 2 مساءً - 10 مساءً</div>
-                        </div>
-                    </div>
-                </div>
-            `,
-
-            admin: () => `
-                <div class="max-w-7xl mx-auto px-4 py-10 animate-fade-in-up">
-                    <div class="flex justify-between items-center mb-10 border-b border-gray-800 pb-4">
-                        <div>
-                            <h2 class="text-3xl font-serif text-gold-400">لوحة التحكم</h2>
-                            <p class="text-gray-500 text-sm">إدارة المنتجات والطلبات</p>
-                        </div>
-                        <div class="flex gap-3">
-                            <button onclick="adminDashboard.openModal()" class="bg-gold-600 hover:bg-gold-500 text-black font-bold py-2 px-6 rounded-lg flex items-center gap-2">
-                                <i class="fas fa-plus"></i> إضافة منتج
-                            </button>
-                            <button onclick="adminAuth.logout()" class="bg-red-900/50 hover:bg-red-900 text-red-200 py-2 px-4 rounded-lg text-sm">
-                                <i class="fas fa-sign-out-alt"></i> خروج
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        <div class="glass-card p-6 rounded-xl">
-                            <div class="text-gray-400 text-sm mb-1">إجمالي المنتجات</div>
-                            <div class="text-3xl font-bold text-white" id="admin-count-all">0</div>
-                        </div>
-                        <div class="glass-card p-6 rounded-xl border-l-4 border-gold-500">
-                            <div class="text-gray-400 text-sm mb-1">المنتجات المميزة</div>
-                            <div class="text-3xl font-bold text-gold-400" id="admin-count-featured">0</div>
-                        </div>
-                        <div class="glass-card p-6 rounded-xl border-l-4 border-red-500">
-                            <div class="text-gray-400 text-sm mb-1">العروض الخاصة</div>
-                            <div class="text-3xl font-bold text-red-400" id="admin-count-offers">0</div>
-                        </div>
-                    </div>
-
-                    <!-- Product List -->
-                    <div class="bg-dark rounded-xl border border-gray-800 overflow-hidden">
-                        <table class="w-full text-right">
-                            <thead class="bg-black/50 text-gray-400 text-sm">
-                                <tr>
-                                    <th class="p-4 font-medium">الصورة</th>
-                                    <th class="p-4 font-medium">الاسم</th>
-                                    <th class="p-4 font-medium">السعر</th>
-                                    <th class="p-4 font-medium">الفئة</th>
-                                    <th class="p-4 font-medium">الحالة</th>
-                                    <th class="p-4 font-medium text-left">إجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-800" id="admin-product-list">
-                                <!-- Populated by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Add/Edit Modal -->
-                <div id="product-modal" class="fixed inset-0 z-[60] hidden overflow-y-auto">
-                    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="adminDashboard.closeModal()"></div>
-                    <div class="relative min-h-screen md:min-h-0 md:absolute md:top-10 md:left-1/2 md:transform md:-translate-x-1/2 w-full md:max-w-2xl p-4">
-                        <div class="glass-card rounded-2xl p-6 md:p-8 relative">
-                            <button onclick="adminDashboard.closeModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white">
-                                <i class="fas fa-times text-xl"></i>
-                            </button>
-                            <h3 class="text-2xl font-serif text-gold-400 mb-6" id="modal-title">إضافة منتج جديد</h3>
-                            
-                            <form id="product-form" onsubmit="adminDashboard.saveProduct(event)" class="space-y-4">
-                                <input type="hidden" id="p-id">
-                                
-                                <div>
-                                    <label class="block text-gray-400 text-sm mb-1">اسم المنتج</label>
-                                    <input type="text" id="p-name" required class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-gold-500 focus:outline-none">
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-gray-400 text-sm mb-1">السعر (جنيه)</label>
-                                        <input type="number" id="p-price" required class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-gold-500 focus:outline-none">
-                                    </div>
-                                    <div>
-                                        <label class="block text-gray-400 text-sm mb-1">الفئة</label>
-                                        <select id="p-category" class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-gold-500 focus:outline-none">
-                                            <option value="خواتم">خواتم</option>
-                                            <option value="سلاسل">سلاسل</option>
-                                            <option value="أساور">أساور</option>
-                                            <option value="أطقم مجوهرات">أطقم مجوهرات</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block text-gray-400 text-sm mb-1">رابط الصورة</label>
-                                    <input type="url" id="p-image" required placeholder="https://..." class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-gold-500 focus:outline-none">
-                                    <p class="text-xs text-gray-500 mt-1">استخدم رابط مباشر للصورة (مثال: unsplash)</p>
-                                </div>
-
-                                <div>
-                                    <label class="block text-gray-400 text-sm mb-1">الوصف</label>
-                                    <textarea id="p-desc" rows="3" class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:border-gold-500 focus:outline-none"></textarea>
-                                </div>
-
-                                <div class="flex gap-4 pt-2">
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="p-featured" class="w-5 h-5 rounded border-gray-700 text-gold-600 focus:ring-gold-500 bg-black/50">
-                                        <span class="text-gray-300">منتج مميز</span>
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" id="p-offer" class="w-5 h-5 rounded border-gray-700 text-red-600 focus:ring-red-500 bg-black/50">
-                                        <span class="text-gray-300">عرض خاص</span>
-                                    </label>
-                                </div>
-
-                                <button type="submit" class="w-full bg-gold-600 hover:bg-gold-500 text-black font-bold py-3 rounded-lg mt-4 transition-colors">
-                                    حفظ المنتج
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            `,
-
-            // Filter Handlers
-            handleSearch: (val) => router.navigate('products', { search: val, category: document.querySelector('select').value }),
-            handleCategory: (val) => router.navigate('products', { category: val }),
-            handleSort: (val) => router.navigate('products', { sort: val })
-        };
-
-        // --- Components ---
-        const components = {
-            productCard: (p) => {
-                const whatsappMsg = `السلام عليكم، أريد طلب هذا المنتج من متجر مجوهرات مكة: %0A%0Aاسم المنتج: ${p.name}%0Aالسعر: ${p.price} جنيه%0A%0Aمن فضلك تواصل معي لإتمام الطلب.`;
-                const whatsappLink = `https://wa.me/201009635176?text=${whatsappMsg}`;
-
-                return `
-                    <div class="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full">
-                        <div class="relative h-64 overflow-hidden cursor-pointer" onclick="router.navigate('product-details', ${p.id})">
-                            <img src="${p.images[0]}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            ${p.offer ? `<div class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-br-lg">عرض</div>` : ''}
-                            ${p.featured ? `<div class="absolute top-0 right-0 bg-gold-600 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">مميز</div>` : ''}
-                            
-                            <!-- Overlay Actions -->
-                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                                <button onclick="event.stopPropagation(); router.navigate('product-details', ${p.id})" class="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors" title="عرض التفاصيل">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button onclick="event.stopPropagation(); utils.shareProduct('${p.name}')" class="bg-white text-black w-10 h-10 rounded-full flex items-center justify-center hover:bg-gold-500 transition-colors" title="مشاركة">
-                                    <i class="fas fa-share-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-5 flex flex-col flex-grow text-right">
-                            <div class="text-xs text-gold-500 mb-1">${p.category}</div>
-                            <h3 class="text-lg font-bold text-white mb-2 leading-snug cursor-pointer hover:text-gold-400" onclick="router.navigate('product-details', ${p.id})">${p.name}</h3>
-                            <p class="text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">${p.description}</p>
-                            <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700">
-                                <span class="text-xl font-bold text-gold-400">${p.price} ج.م</span>
-                                <a href="${whatsappLink}" target="_blank" class="bg-green-600 hover:bg-green-500 text-white text-sm font-bold py-2 px-4 rounded-lg flex items-center gap-2 transition-colors">
-                                    <i class="fab fa-whatsapp"></i> اطلب
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-        };
-
-        // --- Admin Logic ---
-        const adminAuth = {
-            isAuthenticated: false,
-            pin: '1234', // Simple PIN for demo
-            
-            prompt: function() {
-                document.getElementById('admin-login-modal').classList.remove('hidden');
-                document.getElementById('admin-pin').value = '';
-                document.getElementById('admin-pin').focus();
-            },
-            
-            close: function() {
-                document.getElementById('admin-login-modal').classList.add('hidden');
-                document.getElementById('login-error').classList.add('hidden');
-            },
-            
-            login: function(e) {
-                e.preventDefault();
-                const input = document.getElementById('admin-pin').value;
-                if(input === this.pin) {
-                    this.isAuthenticated = true;
-                    this.close();
-                    router.navigate('admin');
-                    utils.showToast('تم الدخول للوحة التحكم');
-                } else {
-                    document.getElementById('login-error').classList.remove('hidden');
-                }
-            },
-            
-            logout: function() {
-                this.isAuthenticated = false;
-                router.navigate('home');
-                utils.showToast('تم تسجيل الخروج');
-            }
-        };
-
-        const adminDashboard = {
-            init: function() {
-                this.renderTable();
-                this.updateStats();
-            },
-
-            renderTable: function() {
-                const products = db.getProducts();
-                const tbody = document.getElementById('admin-product-list');
-                tbody.innerHTML = products.map(p => `
-                    <tr class="hover:bg-white/5 transition-colors group">
-                        <td class="p-4"><img src="${p.images[0]}" class="w-12 h-12 rounded object-cover border border-gray-700"></td>
-                        <td class="p-4 font-medium text-white">${p.name}</td>
-                        <td class="p-4 text-gold-400">${p.price}</td>
-                        <td class="p-4 text-gray-400 text-sm">${p.category}</td>
-                        <td class="p-4">
-                            ${p.featured ? '<span class="bg-gold-900/50 text-gold-400 text-xs px-2 py-1 rounded border border-gold-900">مميز</span>' : ''}
-                            ${p.offer ? '<span class="bg-red-900/50 text-red-400 text-xs px-2 py-1 rounded border border-red-900 mr-1">عرض</span>' : ''}
-                        </td>
-                        <td class="p-4 text-left">
-                            <button onclick="adminDashboard.editProduct(${p.id})" class="text-blue-400 hover:text-blue-300 mx-1" title="تعديل"><i class="fas fa-edit"></i></button>
-                            <button onclick="adminDashboard.deleteProduct(${p.id})" class="text-red-400 hover:text-red-300 mx-1" title="حذف"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `).join('');
-            },
-
-            updateStats: function() {
-                const products = db.getProducts();
-                document.getElementById('admin-count-all').innerText = products.length;
-                document.getElementById('admin-count-featured').innerText = products.filter(p => p.featured).length;
-                document.getElementById('admin-count-offers').innerText = products.filter(p => p.offer).length;
-            },
-
-            openModal: function(id = null) {
-                document.getElementById('product-modal').classList.remove('hidden');
-                document.getElementById('product-form').reset();
-                document.getElementById('p-id').value = '';
-                document.getElementById('modal-title').innerText = 'إضافة منتج جديد';
-                
-                if(id) {
-                    const p = db.getProduct(id);
-                    document.getElementById('p-id').value = p.id;
-                    document.getElementById('p-name').value = p.name;
-                    document.getElementById('p-price').value = p.price;
-                    document.getElementById('p-category').value = p.category;
-                    document.getElementById('p-image').value = p.images[0];
-                    document.getElementById('p-desc').value = p.description;
-                    document.getElementById('p-featured').checked = p.featured;
-                    document.getElementById('p-offer').checked = p.offer;
-                    document.getElementById('modal-title').innerText = 'تعديل منتج';
-                }
-            },
-
-            closeModal: function() {
-                document.getElementById('product-modal').classList.add('hidden');
-            },
-
-            saveProduct: function(e) {
-                e.preventDefault();
-                const id = document.getElementById('p-id').value;
-                const data = {
-                    name: document.getElementById('p-name').value,
-                    price: parseFloat(document.getElementById('p-price').value),
-                    category: document.getElementById('p-category').value,
-                    images: [document.getElementById('p-image').value],
-                    description: document.getElementById('p-desc').value,
-                    featured: document.getElementById('p-featured').checked,
-                    offer: document.getElementById('p-offer').checked
-                };
-
-                if(id) {
-                    db.updateProduct(id, data);
-                    utils.showToast('تم تحديث المنتج بنجاح');
-                } else {
-                    db.addProduct(data);
-                    utils.showToast('تم إضافة المنتج بنجاح');
-                }
-                
-                this.closeModal();
-                this.renderTable();
-                this.updateStats();
-            },
-
-            editProduct: function(id) {
-                this.openModal(id);
-            },
-
-            deleteProduct: function(id) {
-                if(confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
-                    db.deleteProduct(id);
-                    this.renderTable();
-                    this.updateStats();
-                    utils.showToast('تم حذف المنتج');
-                }
-            }
-        };
-
-        // --- Utilities ---
-        const utils = {
-            showToast: function(msg) {
-                const toast = document.getElementById('toast');
-                document.getElementById('toast-msg').innerText = msg;
-                toast.classList.remove('opacity-0', 'translate-y-[-20px]');
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'translate-y-[-20px]');
-                }, 3000);
-            },
-
-            shareProduct: function(name) {
-                // In a real PWA, use Web Share API. Here we simulate or copy link.
-                if (navigator.share) {
-                    navigator.share({
-                        title: name,
-                        text: `شاهد هذا المنتج من مجوهرات مكة: ${name}`,
-                        url: window.location.href
-                    }).catch(console.error);
-                } else {
-                    // Fallback
-                    utils.showToast('تم نسخ رابط المنتج');
-                }
-            }
-        };
-
-        // --- Mobile Menu Toggle ---
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        // --- Initialization ---
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            router.navigate('home');
+            showView('home');
             
             // Navbar scroll effect
             window.addEventListener('scroll', () => {
                 const nav = document.getElementById('navbar');
-                if(window.scrollY > 50) {
-                    nav.classList.add('shadow-lg');
-                    nav.style.background = 'rgba(10, 10, 10, 0.95)';
+                if (window.scrollY > 50) {
+                    nav.classList.add('glass', 'py-3');
+                    nav.classList.remove('py-6');
                 } else {
-                    nav.classList.remove('shadow-lg');
-                    nav.style.background = 'rgba(20, 20, 20, 0.7)';
+                    nav.classList.remove('glass', 'py-3');
+                    nav.classList.add('py-6');
                 }
             });
         });
 
+        // View Management
+        function showView(view) {
+            currentView = view;
+            const main = document.getElementById('mainContent');
+            
+            // Hide admin view
+            document.getElementById('adminView').classList.add('hidden');
+            
+            if (view === 'home') {
+                main.innerHTML = renderHome();
+            } else if (view === 'products') {
+                main.innerHTML = renderProducts(products);
+            } else if (view === 'contact') {
+                main.innerHTML = renderContact();
+            } else if (view === 'admin' && isAdmin) {
+                main.innerHTML = '';
+                document.getElementById('adminView').classList.remove('hidden');
+                updateAdminStats();
+                renderAdminTable();
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        // Render Functions
+        function renderHome() {
+            const featured = products.filter(p => p.featured).slice(0, 4);
+            return `
+                <!-- Hero -->
+                <div class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+                    <div class="absolute inset-0 z-0">
+                        <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=2000" 
+                             class="w-full h-full object-cover opacity-50 scale-105" alt="Hero">
+                        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950"></div>
+                        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-900/20 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto slide-enter">
+                        <span class="inline-block py-1 px-3 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm font-medium mb-6">
+                            فخامة لا تُضاهى
+                        </span>
+                        <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight">
+                            مجوهرات <span class="text-amber-400">مكة</span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+                            حيث يلتقي الأصالة بالحداثة. اكتشف تشكيلتنا الحصرية من الذهب والألماس المصممة بإتقان لأجلك.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button onclick="showView('products')" 
+                                class="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-full transition-all hover:shadow-lg hover:shadow-amber-500/30 flex items-center gap-2">
+                                تصفح المجموعة
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </button>
+                            <button onclick="showView('contact')" 
+                                class="px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-colors">
+                                تواصل معنا
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured -->
+                <section class="py-24 px-6 max-w-7xl mx-auto">
+                    <div class="flex items-end justify-between mb-12">
+                        <div>
+                            <h2 class="text-3xl md:text-4xl font-serif text-white mb-2">مجموعتنا المختارة</h2>
+                            <div class="h-1 w-20 bg-amber-500 rounded-full"></div>
+                        </div>
+                        <button onclick="showView('products')" class="hidden md:flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors">
+                            عرض الكل
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        ${featured.map(p => renderProductCard(p)).join('')}
+                    </div>
+                </section>
+
+                <!-- Features -->
+                <section class="py-24 bg-slate-900 border-y border-slate-800">
+                    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+                        ${[
+                            {icon: '💎', title: 'جودة عالية', desc: 'نختار أحجارنا ومعادننا بعناية فائقة'},
+                            {icon: '✨', title: 'تصاميم فريدة', desc: 'تصاميم عصرية تجمع الأصالة بالحداثة'},
+                            {icon: '👑', title: 'ضمان الذهب', desc: 'جميع قطعنا مصحوبة بشهادات ضمان'}
+                        ].map(f => `
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">${f.icon}</div>
+                                <h3 class="text-xl font-bold text-white mb-3">${f.title}</h3>
+                                <p class="text-slate-400">${f.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderProducts(productList) {
+            return `
+                <div class="pt-32 pb-24 px-6 max-w-7xl mx-auto slide-enter">
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl md:text-5xl font-serif text-white mb-4">متجر المجوهرات</h1>
+                        <p class="text-slate-400 max-w-2xl mx-auto">تصفح مجموعتنا الواسعة من المجوهرات الفاخرة</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        ${productList.map(p => renderProductCard(p)).join('')}
+                    </div>
+                    ${productList.length === 0 ? '<p class="text-center text-slate-500 text-xl">لا توجد منتجات</p>' : ''}
+                </div>
+            `;
+        }
+
+        function renderContact() {
+            return `
+                <div class="pt-32 pb-24 px-6 max-w-4xl mx-auto text-center slide-enter">
+                    <div class="bg-slate-900 rounded-3xl p-8 md:p-16 border border-slate-800">
+                        <h1 class="text-4xl font-serif text-white mb-6">تواصل معنا</h1>
+                        <p class="text-slate-400 mb-12 text-lg">نحن هنا لمساعدتك في اختيار القطعة المثالية</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <a href="https://wa.me/201009635176" target="_blank" 
+                                class="flex flex-col items-center gap-4 p-8 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/20 hover:bg-[#25D366]/20 transition-colors">
+                                <div class="w-16 h-16 rounded-full bg-[#25D366] flex items-center justify-center text-white">
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372m8.413 18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold text-lg">واتساب</h3>
+                                    <p class="text-slate-400">+20 100 963 5176</p>
+                                </div>
+                            </a>
+                            <a href="https://www.facebook.com/share/1FXLCgoZcj/" target="_blank"
+                                class="flex flex-col items-center gap-4 p-8 rounded-2xl bg-blue-600/10 border border-blue-600/20 hover:bg-blue-600/20 transition-colors">
+                                <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                                    <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold text-lg">فيسبوك</h3>
+                                    <p class="text-slate-400">Makkah Jewelry</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProductCard(p) {
+            return `
+                <div class="product-card group relative bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/30">
+                    <div class="relative aspect-[4/5] overflow-hidden cursor-pointer" onclick="openProductModal('${p.id}')">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+                        <div class="absolute top-4 right-4 flex flex-col gap-2">
+                            ${p.isNew ? '<span class="bg-amber-500 text-slate-950 text-xs font-bold px-3 py-1 rounded-full">جديد</span>' : ''}
+                            ${p.featured ? '<span class="bg-slate-950/80 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/30">مميز</span>' : ''}
+                        </div>
+                        <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-slate-950 to-transparent pt-12">
+                            <button onclick="event.stopPropagation(); orderOnWhatsApp('${p.id}')" 
+                                class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372m8.413 18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                                اطلب عبر واتساب
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5 text-right">
+                        <div class="text-xs text-slate-500 mb-1">${p.category}</div>
+                        <h3 class="text-lg font-bold text-slate-100 mb-2 group-hover:text-amber-400 transition-colors cursor-pointer truncate" onclick="openProductModal('${p.id}')">${p.name}</h3>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-serif text-amber-400">${p.price.toLocaleString()} ج.م</span>
+                            <button class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-amber-500 hover:text-slate-950 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Product Modal
+        function openProductModal(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            
+            document.getElementById('modalImage').src = p.image;
+            document.getElementById('modalCategory').textContent = p.category;
+            document.getElementById('modalTitle').textContent = p.name;
+            document.getElementById('modalPrice').textContent = p.price.toLocaleString() + ' ج.م';
+            document.getElementById('modalDesc').textContent = p.description;
+            document.getElementById('modalBadge').classList.toggle('hidden', !p.featured);
+            
+            document.getElementById('modalOrderBtn').onclick = () => orderOnWhatsApp(id);
+            
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function orderOnWhatsApp(id) {
+            const p = products.find(x => x.id === id);
+            const message = `السلام عليكم، أريد طلب هذا المنتج من متجر مجوهرات مكة:\n\nاسم المنتج: ${p.name}\nالسعر: ${p.price} ج.م\n\nمن فضلك تواصل معي لإتمام الطلب.`;
+            window.open(`https://wa.me/201009635176?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // Search
+        function handleSearch(query) {
+            if (currentView !== 'products') {
+                showView('products');
+            }
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query.toLowerCase()) ||
+                p.category.includes(query)
+            );
+            document.getElementById('mainContent').innerHTML = renderProducts(filtered);
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Admin Functions
+        function showAdminLogin() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('loginError').classList.add('hidden');
+        }
+
+        function closeAdminLogin() {
+            const modal = document.getElementById('adminModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('adminPin').value;
+            if (pin === '1234') {
+                isAdmin = true;
+                closeAdminLogin();
+                showView('admin');
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            showView('home');
+        }
+
+        function updateAdminStats() {
+            document.getElementById('statTotal').textContent = products.length;
+            document.getElementById('statFeatured').textContent = products.filter(p => p.featured).length;
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = products.map(p => `
+                <tr class="hover:bg-white/5 transition-colors">
+                    <td class="p-5">
+                        <div class="flex items-center gap-4">
+                            <img src="${p.image}" class="w-12 h-12 rounded-lg object-cover border border-slate-800">
+                            <span class="font-medium text-white">${p.name}</span>
+                        </div>
+                    </td>
+                    <td class="p-5 text-slate-400">${p.category}</td>
+                    <td class="p-5 text-amber-400 font-serif">${p.price.toLocaleString()} ج.م</td>
+                    <td class="p-5">
+                        ${p.featured ? '<span class="inline-flex items-center gap-1 text-xs font-bold text-amber-400 bg-amber-400/10 px-2 py-1 rounded-md border border-amber-400/20">★ مميز</span>' : '<span class="text-xs text-slate-500">عادي</span>'}
+                    </td>
+                    <td class="p-5 text-left">
+                        <button onclick="editProduct('${p.id}')" class="p-2 text-blue-400 hover:bg-blue-400/10 rounded-lg transition-colors" title="تعديل">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                        </button>
+                        <button onclick="deleteProduct('${p.id}')" class="p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors" title="حذف">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openProductForm() {
+            document.getElementById('formTitle').textContent = 'إضافة منتج جديد';
+            document.getElementById('productForm').reset();
+            document.getElementById('editId').value = '';
+            
+            const modal = document.getElementById('productFormModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductForm() {
+            const modal = document.getElementById('productFormModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function editProduct(id) {
+            const p = products.find(x => x.id === id);
+            document.getElementById('formTitle').textContent = 'تعديل منتج';
+            document.getElementById('editId').value = p.id;
+            document.getElementById('formName').value = p.name;
+            document.getElementById('formPrice').value = p.price;
+            document.getElementById('formCategory').value = p.category;
+            document.getElementById('formDesc').value = p.description;
+            document.getElementById('formImage').value = p.image;
+            document.getElementById('formFeatured').checked = p.featured;
+            
+            const modal = document.getElementById('productFormModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const data = {
+                name: document.getElementById('formName').value,
+                price: Number(document.getElementById('formPrice').value),
+                category: document.getElementById('formCategory').value,
+                description: document.getElementById('formDesc').value,
+                image: document.getElementById('formImage').value,
+                featured: document.getElementById('formFeatured').checked
+            };
+            
+            if (id) {
+                const idx = products.findIndex(p => p.id === id);
+                products[idx] = { ...products[idx], ...data };
+            } else {
+                products.push({
+                    ...data,
+                    id: Date.now().toString(),
+                    isNew: true
+                });
+            }
+            
+            closeProductForm();
+            updateAdminStats();
+            renderAdminTable();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+                products = products.filter(p => p.id !== id);
+                updateAdminStats();
+                renderAdminTable();
+            }
+        }
+
+        // Close modals on outside click
+        window.onclick = function(e) {
+            if (e.target.id === 'productModal') closeModal();
+            if (e.target.id === 'adminModal') closeAdminLogin();
+            if (e.target.id === 'productFormModal') closeProductForm();
+        }
     </script>
 </body>
 </html>
